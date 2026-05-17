@@ -1,0 +1,200 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum Role {
+  EMPLOYEE
+  MANAGER
+  ADMIN
+}
+
+enum ProjectStatus {
+  ACTIVE
+  AT_RISK
+  DELAYED
+  COMPLETED
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  REVIEW
+  BLOCKED
+  DONE
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum MessageSource {
+  SLACK
+  GMAIL
+  TEAMS
+  SYSTEM
+}
+
+enum MessageCategory {
+  URGENT
+  WAITING_ON_YOU
+  WAITING_ON_OTHERS
+  FYI
+  DEADLINE_RISK
+}
+
+enum BlockerStatus {
+  OPEN
+  RESOLVED
+}
+
+enum GraphNodeType {
+  USER
+  PROJECT
+  TASK
+  MEETING
+  MESSAGE
+  PR
+  BLOCKER
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
+
+model User {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  password   String
+  role       Role     @default(EMPLOYEE)
+  avatar     String?
+  department String?
+  createdAt  DateTime @default(now())
+
+  tasks        Task[]
+  messages     Message[]
+  meetings     MeetingParticipant[]
+  actionItems  ActionItem[]
+}
+
+model Project {
+  id          String        @id @default(uuid())
+  name        String
+  description String?
+  status      ProjectStatus @default(ACTIVE)
+  healthScore Int           @default(100)
+  createdAt   DateTime      @default(now())
+
+  tasks    Task[]
+  meetings Meeting[]
+}
+
+model Task {
+  id          String     @id @default(uuid())
+  title       String
+  description String?
+  status      TaskStatus @default(TODO)
+  priority    Priority   @default(MEDIUM)
+  dueDate     DateTime?
+  createdAt   DateTime   @default(now())
+
+  assigneeId String
+  assignee   User    @relation(fields: [assigneeId], references: [id])
+
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id])
+
+  blockers    Blocker[]
+  actionItems ActionItem[]
+}
+
+model Message {
+  id        String          @id @default(uuid())
+  source    MessageSource
+  title     String
+  content   String
+  category  MessageCategory
+  isRead    Boolean         @default(false)
+  createdAt DateTime        @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Meeting {
+  id        String   @id @default(uuid())
+  title     String
+  summary   String?
+  startTime DateTime
+  endTime   DateTime
+  createdAt DateTime @default(now())
+
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id])
+
+  participants MeetingParticipant[]
+  actionItems  ActionItem[]
+}
+
+model MeetingParticipant {
+  id        String @id @default(uuid())
+  meetingId String
+  userId    String
+
+  meeting Meeting @relation(fields: [meetingId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+}
+
+model ActionItem {
+  id          String     @id @default(uuid())
+  title       String
+  description String?
+  status      TaskStatus @default(TODO)
+  dueDate     DateTime?
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  meetingId String?
+  meeting   Meeting? @relation(fields: [meetingId], references: [id])
+
+  taskId String?
+  task   Task?   @relation(fields: [taskId], references: [id])
+}
+
+model Blocker {
+  id         String        @id @default(uuid())
+  reason     String
+  status     BlockerStatus @default(OPEN)
+  createdAt  DateTime      @default(now())
+  resolvedAt DateTime?
+
+  taskId String
+  task   Task   @relation(fields: [taskId], references: [id])
+}
+
+model WorkGraphNode {
+  id        String        @id @default(uuid())
+  label     String
+  type      GraphNodeType
+  refId     String?
+  createdAt DateTime      @default(now())
+}
+
+model WorkGraphEdge {
+  id       String @id @default(uuid())
+  sourceId String
+  targetId String
+  relation String
+}

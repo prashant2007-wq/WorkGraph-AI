@@ -1,0 +1,26 @@
+{
+  "name": "workgraph-ai",
+  "version": "1.0.0",
+  "description": "AI-powered enterprise command center for modern work",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:frontend": "npm run dev --workspace=apps/frontend",
+    "dev:backend": "npm run dev --workspace=apps/backend",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces"
+  },
+  "keywords": [
+    "enterprise",
+    "productivity",
+    "ai",
+    "work-graph",
+    "dashboard"
+  ],
+  "author": "",
+  "license": "MIT"
+}
