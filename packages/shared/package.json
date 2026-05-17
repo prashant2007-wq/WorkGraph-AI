@@ -1,0 +1,11 @@
+{
+  "name": "@workgraph-ai/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "echo \"No shared build configured yet\"",
+    "lint": "echo \"No shared lint configured yet\""
+  }
+}
