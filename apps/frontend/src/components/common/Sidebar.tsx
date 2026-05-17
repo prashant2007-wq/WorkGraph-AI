@@ -1,16 +1,48 @@
-interface SidebarProps {
-  role?: 'employee' | 'manager' | 'admin'
-}
+import {
+  BarChart3,
+  Brain,
+  CalendarDays,
+  GitBranch,
+  Inbox,
+  LayoutDashboard,
+  ListTodo,
+  Settings,
+  ShieldAlert
+} from "lucide-react";
 
-export default function Sidebar({ role = 'employee' }: SidebarProps) {
+const items = [
+  { label: "Dashboard", icon: LayoutDashboard },
+  { label: "Inbox", icon: Inbox },
+  { label: "Tasks", icon: ListTodo },
+  { label: "Blockers", icon: ShieldAlert },
+  { label: "Meetings", icon: CalendarDays },
+  { label: "Work Graph", icon: GitBranch },
+  { label: "AI Assistant", icon: Brain },
+  { label: "Analytics", icon: BarChart3 },
+  { label: "Settings", icon: Settings }
+];
+
+export default function Sidebar() {
   return (
-    <aside className="w-64 bg-[#111827] border-r border-slate-800 flex flex-col">
-      <div className="p-6 border-b border-slate-800">
-        <h2 className="text-xl font-bold text-white">WorkGraph <span className="text-indigo-400">AI</span></h2>
+    <aside className="w-72 min-h-screen border-r border-slate-800 bg-slate-950 text-white p-5">
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold">WorkGraph AI</h1>
+        <p className="text-sm text-slate-500 mt-1">Enterprise command center</p>
       </div>
-      <nav className="flex-1 p-4">
-        <p className="text-slate-400 text-sm">role: {role}</p>
+
+      <nav className="space-y-2">
+        {items.map((item) => {
+          const Icon = item.icon;
+          return (
+            <button
+              key={item.label}
+              className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-slate-300 hover:bg-slate-900 hover:text-white transition"
+            >
+              <Icon size={19} />
+              <span>{item.label}</span>
+            </button>
+          );
+        })}
       </nav>
-    </aside>
-  )
+  );
 }
