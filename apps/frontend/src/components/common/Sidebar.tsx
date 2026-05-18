@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import {
   BarChart3,
   Brain,
@@ -11,15 +12,15 @@ import {
 } from "lucide-react";
 
 const items = [
-  { label: "Dashboard", icon: LayoutDashboard },
-  { label: "Inbox", icon: Inbox },
-  { label: "Tasks", icon: ListTodo },
-  { label: "Blockers", icon: ShieldAlert },
-  { label: "Meetings", icon: CalendarDays },
-  { label: "Work Graph", icon: GitBranch },
-  { label: "AI Assistant", icon: Brain },
-  { label: "Analytics", icon: BarChart3 },
-  { label: "Settings", icon: Settings }
+  { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
+  { label: "Inbox", icon: Inbox, path: "/inbox" },
+  { label: "Tasks", icon: ListTodo, path: "/tasks" },
+  { label: "Blockers", icon: ShieldAlert, path: "/blockers" },
+  { label: "Meetings", icon: CalendarDays, path: "/meetings" },
+  { label: "Work Graph", icon: GitBranch, path: "/work-graph" },
+  { label: "AI Assistant", icon: Brain, path: "/ai-assistant" },
+  { label: "Analytics", icon: BarChart3, path: "/analytics" },
+  { label: "Settings", icon: Settings, path: "/settings" }
 ];
 
 export default function Sidebar() {
@@ -34,13 +35,20 @@ export default function Sidebar() {
         {items.map((item) => {
           const Icon = item.icon;
           return (
-            <button
+            <NavLink
               key={item.label}
-              className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-slate-300 hover:bg-slate-900 hover:text-white transition"
+              to={item.path}
+              className={({ isActive }) =>
+                `w-full flex items-center gap-3 rounded-xl px-4 py-3 transition ${
+                  isActive
+                    ? "bg-blue-600 text-white"
+                    : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                }`
+              }
             >
               <Icon size={19} />
               <span>{item.label}</span>
-            </button>
+            </NavLink>
           );
         })}
       </nav>
