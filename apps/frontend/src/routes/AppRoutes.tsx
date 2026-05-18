@@ -4,6 +4,7 @@ import Dashboard from "../pages/employee/Dashboard";
 import Inbox from "../pages/employee/Inbox";
 import Tasks from "../pages/employee/Tasks";
 import Blockers from "../pages/employee/Blockers";
+import Meetings from "../pages/employee/Meetings";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 export default function AppRoutes() {
@@ -17,6 +18,7 @@ export default function AppRoutes() {
         <Route path="/inbox" element={<Inbox />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/blockers" element={<Blockers />} />
+        <Route path="/meetings" element={<Meetings />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/login" replace />} />
