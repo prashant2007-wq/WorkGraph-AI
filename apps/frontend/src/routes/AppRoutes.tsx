@@ -6,6 +6,7 @@ import Tasks from "../pages/employee/Tasks";
 import Blockers from "../pages/employee/Blockers";
 import Meetings from "../pages/employee/Meetings";
 import WorkGraph from "../pages/employee/WorkGraph";
+import AIAssistant from "../pages/employee/AIAssistant";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 export default function AppRoutes() {
@@ -21,6 +22,7 @@ export default function AppRoutes() {
         <Route path="/blockers" element={<Blockers />} />
         <Route path="/meetings" element={<Meetings />} />
         <Route path="/work-graph" element={<WorkGraph />} />
+        <Route path="/ai-assistant" element={<AIAssistant />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/login" replace />} />
