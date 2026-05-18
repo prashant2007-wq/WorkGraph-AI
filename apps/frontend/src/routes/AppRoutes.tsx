@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "../pages/auth/Login";
 import Dashboard from "../pages/employee/Dashboard";
 import Inbox from "../pages/employee/Inbox";
+import Tasks from "../pages/employee/Tasks";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 export default function AppRoutes() {
@@ -13,6 +14,7 @@ export default function AppRoutes() {
       <Route element={<DashboardLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/inbox" element={<Inbox />} />
+        <Route path="/tasks" element={<Tasks />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/login" replace />} />
