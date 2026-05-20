@@ -8,6 +8,7 @@ import Meetings from "../pages/employee/Meetings";
 import WorkGraph from "../pages/employee/WorkGraph";
 import AIAssistant from "../pages/employee/AIAssistant";
 import Analytics from "../pages/employee/Analytics";
+import Profile from "../pages/employee/Profile";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 export default function AppRoutes() {
@@ -25,6 +26,7 @@ export default function AppRoutes() {
         <Route path="/work-graph" element={<WorkGraph />} />
         <Route path="/ai-assistant" element={<AIAssistant />} />
         <Route path="/analytics" element={<Analytics />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/login" replace />} />
