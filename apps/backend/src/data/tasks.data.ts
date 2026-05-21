@@ -28,5 +28,15 @@ export const tasks = [
     assignee: "Prashant Bisht",
     dueDate: "Friday",
     blocker: null
+  },
+  {
+    id: "WG-104",
+    title: "Update API error states",
+    project: "Billing Platform",
+    status: "TODO",
+    priority: "HIGH",
+    assignee: "Prashant Bisht",
+    dueDate: "This week",
+    blocker: null
   }
 ];
