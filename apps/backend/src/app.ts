@@ -5,6 +5,7 @@ import taskRoutes from "./routes/task.routes";
 import inboxRoutes from "./routes/inbox.routes";
 import meetingRoutes from "./routes/meeting.routes";
 import graphRoutes from "./routes/graph.routes";
+import aiRoutes from "./routes/ai.routes";
 
 const app = express();
 
@@ -36,5 +37,6 @@ app.use("/api/tasks", taskRoutes);
 app.use("/api/inbox", inboxRoutes);
 app.use("/api/meetings", meetingRoutes);
 app.use("/api/graph", graphRoutes);
+app.use("/api/ai", aiRoutes);
 
 export default app;
