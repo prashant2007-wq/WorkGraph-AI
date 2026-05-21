@@ -9,7 +9,8 @@ export function getTasksController(_req: Request, res: Response) {
 }
 
 export function getTaskByIdController(req: Request, res: Response) {
-  const task = getTaskById(req.params.id);
+  const id = String(req.params.id);
+  const task = getTaskById(id);
 
   if (!task) {
     res.status(404).json({

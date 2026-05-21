@@ -9,7 +9,8 @@ export function getMeetingsController(_req: Request, res: Response) {
 }
 
 export function getMeetingByIdController(req: Request, res: Response) {
-  const meeting = getMeetingById(req.params.id);
+  const id = String(req.params.id);
+  const meeting = getMeetingById(id);
 
   if (!meeting) {
     res.status(404).json({
