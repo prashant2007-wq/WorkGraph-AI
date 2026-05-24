@@ -13,7 +13,7 @@ It helps employees prioritize their day, detect blocked work, convert meetings i
 - JWT Auth · Zustand · TanStack Query
 
 ---
-
+ 
 ## Folder Structure
 
 ```
